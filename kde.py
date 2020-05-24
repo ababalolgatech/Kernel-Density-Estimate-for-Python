@@ -18,17 +18,6 @@ def ad(a,b,d= None):
     else:
         c = {a,b,d}    
     return c
-
-
-# function handles
-def method1(spam):
-    return 'hello ' + str(spam)
-
-def method2(spam):
-    return 'h ' + str(spam)
-
-def method3(methodToRun,spam_value):
-    return methodToRun(spam_value)
 #-----------------------------------------------------------------
 def matlab_any(arr):
     if (arr.size == 0):
