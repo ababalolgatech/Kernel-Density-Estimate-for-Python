@@ -1,8 +1,5 @@
-# -*- coding: utf-8 -*-
 """
-Created on Sun Sep 15 01:14:23 2019
-
-@author: Ayo
+@author: Dr. Ayodeji Babalola
 """
 
 import math 
