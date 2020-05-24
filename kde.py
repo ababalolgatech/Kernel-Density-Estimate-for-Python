@@ -9,11 +9,9 @@ import DualTree_module
 import BallTree_module
 import knn_module 
 from statsmodels.stats.weightstats import DescrStatsW
-#from scipy.stats import iqr
 from scipy.special import gamma
-#----------------------------------------------------
 
-#-----------------------------------------------------------------
+#----------------------------------------------------
 def ad(a,b,d= None):
     if (d is None):
         c = {a,b}
@@ -832,92 +830,93 @@ def condition(dens,ind,A):
     pp = kde(pts[newInd,:],bw[newInd,:],wNew,getType(dens))        
     return pp
 
-
 #*****************************************************************************
-#data = np.array([[1, 0.85, 0.65, .12],[0.5 ,0.6 ,1.2 ,0.5],[500,1200,700,5000]])
-data = np.array([[1, 0.85, 0.65, .12],[0.5 ,0.6 ,1.2 ,0.5]])
+if __name__ == '__main__':
+    # Testing definitions
+    #data = np.array([[1, 0.85, 0.65, .12],[0.5 ,0.6 ,1.2 ,0.5],[500,1200,700,5000]])
+    data = np.array([[1, 0.85, 0.65, .12],[0.5 ,0.6 ,1.2 ,0.5]])
 
-weights = np.array([0.25,0.25,0.25,0.25])
-ks = np.array([1, 1])
-ttype = 0
+    weights = np.array([0.25,0.25,0.25,0.25])
+    ks = np.array([1, 1])
+    ttype = 0
 
-bw = np.array([[0.2039,0.2867, 0.1031,0,0.0931,0.0931,0.0931,0.0931],
-               [0.088,0.0035,0.0935,0,0.0035,0.0035,0.0035,0.0035]])
-ts = bw[0,:]
-sz = m_size(ts)
+    bw = np.array([[0.2039,0.2867, 0.1031,0,0.0931,0.0931,0.0931,0.0931],
+                   [0.088,0.0035,0.0935,0,0.0035,0.0035,0.0035,0.0035]])
+    ts = bw[0,:]
+    sz = m_size(ts)
 
-dens = BallTreedensity(data,weights,ks)
+    dens = BallTreedensity(data,weights,ks)
 
-#get_point_dens = np.array([[1,0.85,0.65,0.12],[0.5,0.6,1.2,0.5]])
-#xx,yy = knn(dens,get_point_dens,2)
-#dens_rescale = rescale(dens,10) ;
-dens['bandwidth'] = bw 
-pt = getPoints(dens)
+    #get_point_dens = np.array([[1,0.85,0.65,0.12],[0.5,0.6,1.2,0.5]])
+    #xx,yy = knn(dens,get_point_dens,2)
+    #dens_rescale = rescale(dens,10) ;
+    dens['bandwidth'] = bw 
+    pt = getPoints(dens)
 
-#xx = getBW(dens) 
-wts = getWeights(dens)
-cov = covar(dens,1)
-npd = rescale(dens,1/cov) 
+    #xx = getBW(dens) 
+    wts = getWeights(dens)
+    cov = covar(dens,1)
+    npd = rescale(dens,1/cov) 
 
-dens2 = dens.copy
-p = DualTree(dens,dens)
-#prop,minm,maxm = neighborDistance(dens,2) # knn
-#dens = BallTreedensity(data,weights,ks)
-
-
-#posKDE = BallTree(data,weights)
-#p = DualTree(dens)
+    dens2 = dens.copy
+    p = DualTree(dens,dens)
+    #prop,minm,maxm = neighborDistance(dens,2) # knn
+    #dens = BallTreedensity(data,weights,ks)
 
 
-"""
-minm,maxm = neighborMinMax(dens)
-#prop,minm,maxm = neighborDistance(dens,2)
-
-#ks = golden(dens,nLOO_LL,2*minm/(minm+maxm),1,2*maxm/(minm+maxm),1e-2)
-
-#-----------------------------------
-# testing balltree
-
-posKDE = BallTree(data,weights)
-#-----------------------------------
-
-# testing Dualtree
-#-----------------------------------
-
-#p = DualTree(dens,posKDE)
-
-#-----------------------------------
-# testing entropy
-#-----------------------------------
-dens['class'] = 'kde'
-#p = entropy(dens)
-# testing entropyDist
-#-----------------------------------
-#dens['class']='kde'
-#p = entropy(dens,'dist')
-
-#-------------------kde-----------
-prob = kde(data,'rot')
-#xd  =getBW(prob,0)
-#-------------------marginal-----------
-#prob_marginal = marginal(prob,0)
-"""
-"""
-#-------------------condition-----------
-data = np.array([[1, 0.85, 0.65, .12],[0.5 ,0.6 ,1.2 ,0.5]])
-prob = kde(data,'rot')
-Prob_cond = condition(prob,0,extr_vec(data,0,'all'))
-mean(Prob_cond)
-maxx(Prob_cond) 
+    #posKDE = BallTree(data,weights)
+    #p = DualTree(dens)
 
 
+    """
+    minm,maxm = neighborMinMax(dens)
+    #prop,minm,maxm = neighborDistance(dens,2)
+
+    #ks = golden(dens,nLOO_LL,2*minm/(minm+maxm),1,2*maxm/(minm+maxm),1e-2)
+
+    #-----------------------------------
+    # testing balltree
+
+    posKDE = BallTree(data,weights)
+    #-----------------------------------
+
+    # testing Dualtree
+    #-----------------------------------
+
+    #p = DualTree(dens,posKDE)
+
+    #-----------------------------------
+    # testing entropy
+    #-----------------------------------
+    dens['class'] = 'kde'
+    #p = entropy(dens)
+    # testing entropyDist
+    #-----------------------------------
+    #dens['class']='kde'
+    #p = entropy(dens,'dist')
+
+    #-------------------kde-----------
+    prob = kde(data,'rot')
+    #xd  =getBW(prob,0)
+    #-------------------marginal-----------
+    #prob_marginal = marginal(prob,0)
+    """
+    """
+    #-------------------condition-----------
+    data = np.array([[1, 0.85, 0.65, .12],[0.5 ,0.6 ,1.2 ,0.5]])
+    prob = kde(data,'rot')
+    Prob_cond = condition(prob,0,extr_vec(data,0,'all'))
+    mean(Prob_cond)
+    maxx(Prob_cond) 
 
 
-# Multidimensional----------------------------
-data = np.array([[1, 0.85, 0.65, .12],[0.5 ,0.6 ,1.2 ,0.5],[500,1200,900,6000]])
-prob = kde(data,'rot')
-Prob_cond = condition(prob,np.array([0, 1]),extr_vec(data,[0,1],'all'))
-Prob_cond = condition(prob,np.array([0, 1]).T,data[0:2,:])
-mean(Prob_cond)
-maxx(Prob_cond) 
-"""
+
+
+    # Multidimensional----------------------------
+    data = np.array([[1, 0.85, 0.65, .12],[0.5 ,0.6 ,1.2 ,0.5],[500,1200,900,6000]])
+    prob = kde(data,'rot')
+    Prob_cond = condition(prob,np.array([0, 1]),extr_vec(data,[0,1],'all'))
+    Prob_cond = condition(prob,np.array([0, 1]).T,data[0:2,:])
+    mean(Prob_cond)
+    maxx(Prob_cond) 
+    """
